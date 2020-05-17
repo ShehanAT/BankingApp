@@ -13,8 +13,9 @@ import org.hibernate.service.ServiceRegistry;
 
 public class Main {
 	public static void main(String[] args) throws ParseException{
-		Customer c1 = new Customer(1, "Shehan", "Atukorala", "1945 Dundas Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1999-01-19").getTime()), "shehanatuk@gmail.com", "226-260-8289", "Canadian", (long) 40000);
-		Customer c2 = new Customer(2, "Bob", "Smith", "1211 Aldelaide Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1987-04-23").getTime()), "bobSmith@uwindsor.ca", "226-245-3421", "American", (long) 23000);
+		BankLocation bank1 = new BankLocation(1, "CIBC Ambassador Plaza Bank", "1453 Ambassador Rd Plaza, Windsor, ON", true);
+		Customer c1 = new Customer(1, "Shehan", "Atukorala", "1945 Dundas Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1999-01-19").getTime()), "shehanatuk@gmail.com", "226-260-8289", "Canadian", (long) 40000, bank1);
+		Customer c2 = new Customer(2, "Bob", "Smith", "1211 Aldelaide Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1987-04-23").getTime()), "bobSmith@uwindsor.ca", "226-245-3421", "American", (long) 23000, bank1);
 		Random ran = new Random();
 		Account a1 = new Account(1, c1, ran.nextInt(1000), ran.nextInt(1000));
 		Account a2 = new Account(2, c1, ran.nextInt(1000), ran.nextInt(1000));
@@ -22,7 +23,9 @@ public class Main {
 		Account a4 = new Account(4, c2, ran.nextInt(1000), ran.nextInt(1000));
 		Account a5 = new Account(5, c2, ran.nextInt(1000), ran.nextInt(1000));
 		Account a6 = new Account(6, c2, ran.nextInt(1000), ran.nextInt(1000));
-		Configuration con = new Configuration().configure().addAnnotatedClass(Customer.class).addAnnotatedClass(Account.class);
+		
+		
+		Configuration con = new Configuration().configure().addAnnotatedClass(Customer.class).addAnnotatedClass(Account.class).addAnnotatedClass(BankLocation.class);
 		ServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
 		SessionFactory sesFactory = con.buildSessionFactory(registry);
 		Session session = sesFactory.openSession();

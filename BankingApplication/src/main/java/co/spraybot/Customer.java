@@ -30,10 +30,13 @@ public class Customer {
 	private long salary;
 	@OneToMany(mappedBy="customer")
 	private List<Account> accountIds;
+	@ManyToOne()
+	@JoinColumn(name="bankLocation_id", nullable=false)
+	private BankLocation bankLocation;
 	
 	
 	public Customer(int customerId, String firstName, String lastName, String address, String gender, Date DOB,
-			String email, String mobile, String nationality, long salary) {
+			String email, String mobile, String nationality, long salary, BankLocation bankLocation) {
 		super();
 		this.customerId = customerId;
 		this.firstName = firstName;
@@ -46,8 +49,11 @@ public class Customer {
 		this.nationality = nationality;
 		this.salary = salary;
 		this.accountIds = new ArrayList<Account>();
+		this.bankLocation = bankLocation;
 	}
 	
+	
+
 	public Customer() {
 		
 	}
@@ -120,6 +126,14 @@ public class Customer {
 	}
 	public void setSalary(long salary) {
 		this.salary = salary;
+	}
+	
+	public BankLocation getBankLocation() {
+		return bankLocation;
+	}
+
+	public void setBankLocation(BankLocation bankLocation) {
+		this.bankLocation = bankLocation;
 	}
 	
 	@Override
