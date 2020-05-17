@@ -1,6 +1,6 @@
 # BankingApplication
 
-`[DESCRIBE PURPOSE OF YOUR PROJECT]`
+`Baking Appication made using Java, Hibernate, PostgreSQL, and Spring Boot`
 
 #[[
 - Java 8+
