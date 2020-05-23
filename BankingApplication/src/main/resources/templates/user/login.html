@@ -1,0 +1,56 @@
+<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="messages" />
+<fmt:message key="message.password" var="noPass" />
+<fmt:message key="message.email" var="noEmail" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+</head>
+<body>
+
+	<script th:inline="javascript">
+		function validate(){
+			if(document.loginForm.email.value == "" && document.loginForm.password.value == ""){
+				alert("Email and password are required!");
+				document.loginForm.email.focus();
+				return false;
+			}
+			if(document.loginForm.email.value == ""){
+				alert("Email is required");
+				document.loginForm.email.focus();
+				return false;
+			}
+			if(document.loginForm.password.value == ""){
+				alert("Password is required");
+				document.loginForm.password.focus();
+				return false;
+				}
+		}
+	</script>
+   <div th:if="${param.error != null}" class="alert alert-danger" th:utext="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">error</div>
+   <div class="container">
+    <div class="row wrapper">
+		<h1 th:utext="#{label.form.title}"></h1>
+		<form action="login" method="POST" name="loginForm" onsubmit="return validate();">
+			<span>&nbsp;</span>
+			<div>
+		        <label th:utext="#{label.form.email}">Username: </label>
+		        <input type="text" name="username"/>
+	   		 </div>
+	   		 <br>
+			<div>
+		        <label th:utext="#{label.form.password}">Password: </label>
+		        <input type="password" name="password"/>
+	   		 </div>
+	   		 <br>
+	   		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+	   		 <input type="submit" class="btn btn-primary" th:value="#{label.form.submitButton}" />
+		</form>
+		<a th:href="@{/registration}" th:utext="#{loginPage.regster}">signup</a>
+	 </div>
+	</div>
+</body>
+</html>

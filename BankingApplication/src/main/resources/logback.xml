@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<conversionRule conversionWord="stack" converterClass="net.logstash.logback.stacktrace.ShortenedThrowableConverter"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				web - %date [%thread] %-5level %logger{5} - %message%n%stack{5,1}
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="co.spraybot" level="DEBUG"/>
+	
+	<logger name="org.hibernate" level="WARN" />
+	
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.springframework.transaction" level="WARN" />
+	
+	<logger name="org.springframework.web.servlet.mvc" level="WARN" />
+	
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+
+</configuration>

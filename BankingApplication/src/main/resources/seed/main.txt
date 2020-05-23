@@ -1,0 +1,46 @@
+
+
+		
+		
+		Role role1 = new Role("ROLE_CUSTOMER");
+		Privilege priv1 = new Privilege("READ_PRIVLEGE");
+		Collection<Role> customerRoles = new ArrayList<Role>();
+		Collection<Privilege> customerPrivileges = new ArrayList<Privilege>();
+		customerRoles.add(role1);
+		customerPrivileges.add(priv1);
+		role1.setPrivileges(customerPrivileges);
+		priv1.setRoles(customerRoles);
+
+		Configuration con = new Configuration().configure().addAnnotatedClass(BankLocation.class).addAnnotatedClass(Customer.class).addAnnotatedClass(Account.class).addAnnotatedClass(Transaction.class).addAnnotatedClass(Role.class).addAnnotatedClass(Privilege.class);
+		ServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
+		SessionFactory sesFactory = con.buildSessionFactory(registry);
+		Session session = sesFactory.openSession();
+
+//		Customer c1 = new Customer(1, "Shehan", "Atukorala", "1945 Dundas Ave, Toronto, ON", "male", "shehanatuk1@gmail.com", "226-260-8289", "Canadian", 40000);
+//		BankLocation bank1 = new BankLocation(1, "1453 Ambassador Rd Plaza, Windsor, ON", "CIBC Ambassador Plaza Bank", true);
+//		c1.setBankLocation(bank1);
+//		BankLocation bank2 = new BankLocation(2, "CIBC Walker Rd Bank", "1444 Walker Rd, Windsor, ON", true);
+		
+//		Customer c2 = new Customer(2, "Bob", "Smith", "1211 Aldelaide Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1987-04-23").getTime()), "bobSmith@uwindsor.ca", "226-245-3421", "American", (long) 23000, bank1);
+//		Customer c3 = new Customer(3, "RandomlyName", "Lastname", "232 Hurontario Street, Stratford, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1945-02-12").getTime()), "randomName@randomName.com", "226-784-2231", "Puerto Rican", (long) 100000, bank2);
+//		Random ran = new Random();
+//		Account a1 = new Account(1, c1, ran.nextInt(1000), ran.nextInt(1000), 1);
+//		Account a2 = new Account(2, c1, ran.nextInt(1000), ran.nextInt(1000), 1);
+//		Account a3 = new Account(3, c1, ran.nextInt(1000), ran.nextInt(1000), 2);
+//		Account a4 = new Account(4, c2, ran.nextInt(1000), ran.nextInt(1000), 2);
+//		Account a5 = new Account(5, c2, ran.nextInt(1000), ran.nextInt(1000), 3);
+//		Account a6 = new Account(6, c2, ran.nextInt(1000), ran.nextInt(1000), 4);
+//		
+//		Transaction t1 = new Transaction(1, a2, c1, new Timestamp(new Date(System.currentTimeMillis()).getTime()), 200, 0);
+
+//		
+		session.getTransaction().begin();
+		session.save(role1);
+		session.save(priv1);
+//		session.save(bank1);
+//		session.save(c1);
+////		session.save(t1);
+//		
+//		
+		session.getTransaction().commit();
+		session.close();

@@ -1,0 +1,16 @@
+<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="messages" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Invalid Session Page</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+</head>
+<body>
+	<div class="container">
+		<h1 class="alert alert-danger" th:utext="#{message.sessionExpired}">hello</h1>
+		<a th:href="@{/login}" th:utext="#{message.loginButton}" class="btn btn-primary">hello2</a>
+	</div>
+</body>
+</html>

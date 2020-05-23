@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>User Profile Page</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    </head>
+    <body>
+        <div th:substituteby="index::logout"></div>
+        <h1>This is a secured page!</h1>
+        <h3 th:text="${currentUser}">Current username: ...</h3>
+        <h3 th:text="${dateTime}">Today's date and time: ...</h3>
+        <p><a href="/index" th:href="@{/index}">Back to home page</a></p>
+    </body>
+</html>
