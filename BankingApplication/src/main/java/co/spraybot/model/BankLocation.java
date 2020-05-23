@@ -1,11 +1,14 @@
-package co.spraybot;
+package co.spraybot.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+@Entity
 public class BankLocation {
+	@Id
 	private int bankId;
 	private String locationName;
 	private String address;

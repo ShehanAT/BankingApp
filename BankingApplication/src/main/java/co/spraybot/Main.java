@@ -1,8 +1,12 @@
 package co.spraybot;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import org.hibernate.Session;
@@ -10,39 +14,24 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import co.spraybot.model.Account;
+import co.spraybot.model.BankLocation;
+import co.spraybot.model.Customer;
+import co.spraybot.model.Privilege;
+import co.spraybot.model.Role;
+import co.spraybot.model.Transaction;
+
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class Main {
-	public static void main(String[] args) throws ParseException{
-		BankLocation bank1 = new BankLocation(1, "CIBC Ambassador Plaza Bank", "1453 Ambassador Rd Plaza, Windsor, ON", true);
-		Customer c1 = new Customer(1, "Shehan", "Atukorala", "1945 Dundas Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1999-01-19").getTime()), "shehanatuk@gmail.com", "226-260-8289", "Canadian", (long) 40000, bank1);
-		Customer c2 = new Customer(2, "Bob", "Smith", "1211 Aldelaide Ave, Toronto, ON", "male", new Date(new SimpleDateFormat("yyyy-MM-dd").parse("1987-04-23").getTime()), "bobSmith@uwindsor.ca", "226-245-3421", "American", (long) 23000, bank1);
-		Random ran = new Random();
-		Account a1 = new Account(1, c1, ran.nextInt(1000), ran.nextInt(1000));
-		Account a2 = new Account(2, c1, ran.nextInt(1000), ran.nextInt(1000));
-		Account a3 = new Account(3, c1, ran.nextInt(1000), ran.nextInt(1000));
-		Account a4 = new Account(4, c2, ran.nextInt(1000), ran.nextInt(1000));
-		Account a5 = new Account(5, c2, ran.nextInt(1000), ran.nextInt(1000));
-		Account a6 = new Account(6, c2, ran.nextInt(1000), ran.nextInt(1000));
-		
-		
-		Configuration con = new Configuration().configure().addAnnotatedClass(Customer.class).addAnnotatedClass(Account.class).addAnnotatedClass(BankLocation.class);
-		ServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
-		SessionFactory sesFactory = con.buildSessionFactory(registry);
-		Session session = sesFactory.openSession();
-		
-		session.getTransaction().begin();
-		session.save(c1);
-		session.save(c2);
-		session.save(a1);
-		session.save(a2);
-		session.save(a3);
-		session.save(a4);
-		session.save(a5);
-		session.save(a6);
-		
-		session.getTransaction().commit();
-		session.close();
-		
-		
+	public static void main(String[] args) throws Throwable{
+		SpringApplication.run(Main.class, args);
 	}
 }

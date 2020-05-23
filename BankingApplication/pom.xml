@@ -1,3 +1,4 @@
+<!-- spring.datasource.schema=org/springframework/batch/core/schema-postgresql.sql -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -26,6 +27,100 @@
 
   <dependencies>
 	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-entitymanager</artifactId>
+	    <version>5.4.16.Final</version>
+	</dependency>
+  
+ 	<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>6.3</version>
+		</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-config</artifactId>
+	    <version>5.3.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>5.3.2.RELEASE</version>
+	</dependency>
+  
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>5.2.5.RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.2.5.RELEASE</version>
+    </dependency>
+  	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>javax.servlet.jsp-api</artifactId>
+	    <version>2.3.2-b01</version>
+	</dependency>
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>29.0-jre</version>
+	</dependency>
+  
+	<dependency>
+	    <groupId>org.passay</groupId>
+	    <artifactId>passay</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-mail</artifactId>
+	    <version>2.2.6.RELEASE</version>
+	</dependency>
+  	<dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-databind</artifactId>
+    	<version>2.9.4</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.batch</groupId>
+	    <artifactId>spring-batch-core</artifactId>
+	    <version>4.2.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.hibernate.javax.persistence</groupId>
+	    <artifactId>hibernate-jpa-2.1-api</artifactId>
+	    <version>1.0.0.Final</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	    <version>2.2.4.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-security</artifactId>
+	  <version>2.2.2.RELEASE</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-test</artifactId>
+	  <version>5.2.1.RELEASE</version>
+	  <scope>test</scope>
+	</dependency>
+	<!-- <dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>org.springframework.security.crypto</artifactId>
+	    <version>3.1.4.RELEASE</version>
+	</dependency> -->
+	<dependency>
 	    <groupId>org.postgresql</groupId>
 	    <artifactId>postgresql</artifactId>
 	    <version>42.2.12</version>
@@ -50,13 +145,23 @@
 	    <artifactId>spring-boot-starter-test</artifactId>
 	    <version>2.2.4.RELEASE</version>
 	    <scope>test</scope>
+	    <exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 	</dependency>
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-maven-plugin</artifactId>
 	    <version>2.3.0.RELEASE</version>
 	</dependency>
-	
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-data-jpa</artifactId>
+	    <version>2.2.6.RELEASE</version>
+	</dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
@@ -77,4 +182,19 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+   <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.3.0.RELEASE</version>
+			</plugin>
+		</plugins>
+  </build>
+  
+  	 <beans>
+		<bean name="UserDetailsService" class="org.springframework.security.core.userdetails.UserDetailsService"></bean>
+	</beans>
+  
 </project>

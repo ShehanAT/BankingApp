@@ -1,4 +1,4 @@
-package co.spraybot;
+package co.spraybot.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,15 +21,18 @@ public class Account {
 	private Customer customer; //foreign key to Customer.customerId
 	private int accountNum;
 	private int balance;
+	@Column(nullable=true)
+	private int accountType; //4 types of accounts: checking, dividend, savings, RRSP
 	
-	public Account(int accountId, Customer customer, int accountNum, int balance) {
+	public Account(int accountId, Customer customer, int accountNum, int balance, int accountType) {
 		super();
 		this.accountId = accountId;
 		this.customer = customer;
 		this.accountNum = accountNum;
 		this.balance = balance;
+		this.accountType = accountType;
 	}
-	
+
 	public Account() {
 		
 	}
@@ -56,6 +59,14 @@ public class Account {
 	}
 	public void setBalance(int balance) {
 		this.balance = balance;
+	}
+	
+	public int getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(int accountType) {
+		this.accountType = accountType;
 	}
 
 	@Override
