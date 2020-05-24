@@ -53,7 +53,7 @@ public class Main {
 		TransactionService ts = new TransactionService();
 //		ts.depositFunds(1, 500);
 //		ts.withdrawFunds(1, 900);
-		ts.transferFunds(2, 1, 500);
+//		ts.transferFunds(2, 1, 500);
 		SpringApplication.run(Main.class, args);
 	}
 }
