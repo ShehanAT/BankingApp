@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import co.spraybot.dao.CustomerRepository;
 import co.spraybot.security.CustomAuthenticationProvider;
+import co.spraybot.security.CustomLogoutSuccessHandler;
 import co.spraybot.security.CustomWebAuthenticationDetailsSource;
 
 
@@ -46,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private AuthenticationFailureHandler myAuthenticationFailureHandler;
+	
+	@Autowired
+	private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 	
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -93,15 +97,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 		.sessionFixation().none()
 		.and()
-		.headers().frameOptions().disable();
-
-//		.and()
-//		.logout()
-//		.logoutUrl("/perform_logout")
-//		.deleteCookies("JSESSIONID")
+		.headers().frameOptions().disable()
+		.and()
+		.logout()
+		.invalidateHttpSession(true)
+		.deleteCookies("JSESSIONID")
 //// NOTE: implement logoutSuccessHandler after login
-////		.logoutSuccessHandler(logo)
-//		.permitAll();
+		.logoutSuccessHandler(customLogoutSuccessHandler)
+		.logoutSuccessUrl("/logout.html?logSucc=true")
+		.permitAll();
 	}
 	
 	@Bean

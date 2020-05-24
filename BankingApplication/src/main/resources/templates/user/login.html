@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
-
+	<div th:replace="~{fragments/header :: header}">Header</div>
 	<script th:inline="javascript">
 		function validate(){
 			if(document.loginForm.email.value == "" && document.loginForm.password.value == ""){

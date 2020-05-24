@@ -3,17 +3,26 @@ package co.spraybot.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="transaction")
 public class Transaction {
 	@Id
-	private int transactionId;
-	@ManyToOne()
-	@JoinColumn(name="account_id", nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private int id;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="account_id", unique=true)
 	private Account account;
 	@ManyToOne()
 	@JoinColumn(name="customer_id", nullable=false)
@@ -23,13 +32,12 @@ public class Transaction {
 	private int transactionType; // 0 - Deposit, 1 - Withdraw, 2 - POS, 3 - Transfer
 	
 	
-	public Transaction(int transactionId, Account account, Customer customer, Timestamp tookPlace, int amount, int transactionType) {
+	public Transaction(Account account, Customer customer, Timestamp tookPlace, int amount, int transactionType) {
 		super();
 		this.account = account;
 		this.customer = customer;
 		this.tookPlace = tookPlace;
 		this.amount = amount;
-		this.transactionId = transactionId;
 		this.transactionType = transactionType;
 	}
 	
@@ -78,12 +86,12 @@ public class Transaction {
 
 
 	public int getTransactionId() {
-		return transactionId;
+		return id;
 	}
 
 
-	public void setTransactionId(int transactionId) {
-		this.transactionId = transactionId;
+	public void setTransactionId(int id) {
+		this.id = id;
 	}
 
 
@@ -100,7 +108,7 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return "Transaction [account=" + account + ", customer=" + customer + ", tookPlace=" + tookPlace + ", amount="
-				+ amount + ", transactionId=" + transactionId + ", transactionType=" + transactionType + "]";
+				+ amount + ", id=" + id + ", transactionType=" + transactionType + "]";
 	} 
 	
 }

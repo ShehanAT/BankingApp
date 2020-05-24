@@ -27,6 +27,7 @@ public class MvcConfig implements WebMvcConfigurer{
 		registry.addViewController("/invalidSession").setViewName("/invalidSession.html");
 		registry.addViewController("/invalidSession.html");
 		registry.addViewController("/homepage").setViewName("forward:/homepage");
+		registry.addViewController("/logout.html").setViewName("/user/logout.html");
 	}
 	
 	@Bean

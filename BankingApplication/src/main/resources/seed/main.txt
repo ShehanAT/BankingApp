@@ -11,10 +11,6 @@
 		role1.setPrivileges(customerPrivileges);
 		priv1.setRoles(customerRoles);
 
-		Configuration con = new Configuration().configure().addAnnotatedClass(BankLocation.class).addAnnotatedClass(Customer.class).addAnnotatedClass(Account.class).addAnnotatedClass(Transaction.class).addAnnotatedClass(Role.class).addAnnotatedClass(Privilege.class);
-		ServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
-		SessionFactory sesFactory = con.buildSessionFactory(registry);
-		Session session = sesFactory.openSession();
 
 //		Customer c1 = new Customer(1, "Shehan", "Atukorala", "1945 Dundas Ave, Toronto, ON", "male", "shehanatuk1@gmail.com", "226-260-8289", "Canadian", 40000);
 //		BankLocation bank1 = new BankLocation(1, "1453 Ambassador Rd Plaza, Windsor, ON", "CIBC Ambassador Plaza Bank", true);
@@ -34,7 +30,7 @@
 //		Transaction t1 = new Transaction(1, a2, c1, new Timestamp(new Date(System.currentTimeMillis()).getTime()), 200, 0);
 
 //		
-		session.getTransaction().begin();
+		
 		session.save(role1);
 		session.save(priv1);
 //		session.save(bank1);
@@ -42,5 +38,5 @@
 ////		session.save(t1);
 //		
 //		
-		session.getTransaction().commit();
+		
 		session.close();

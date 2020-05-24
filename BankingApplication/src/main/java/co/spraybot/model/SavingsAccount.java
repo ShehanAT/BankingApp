@@ -4,7 +4,7 @@ public class SavingsAccount extends Account{
 	private String accountTypeName;
 	
 	public SavingsAccount(int accountId, Customer customer, int accountNum, int balance, int accountType) {
-		super(accountId, customer, accountNum, balance, accountType);
+		super(customer, accountNum, balance, accountType);
 		this.accountTypeName = "Savings Account";
 	}
 

@@ -72,10 +72,10 @@ public class Customer {
 	}
 
 
-	public Customer(int customerId, String firstName, String lastName, String address, String gender,
+	public Customer(long customerId, String firstName, String lastName, String address, String gender,
 			String email, String mobile, String nationality, int salary) {
 		super();
-		this.customerId = customerId;
+		this.customerId =  customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;

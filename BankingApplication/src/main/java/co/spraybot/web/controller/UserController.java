@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.mapping.Map;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,12 +41,19 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/homepage")
-	public ModelAndView homepage() {
+	public ModelAndView homepage(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Customer currentUser = (Customer) authentication.getPrincipal();
 		HashMap params = new HashMap<String, Object>();
-		params.put("email", currentUser.getEmail());
-		return new ModelAndView("/homepage.html", params);
+		if(authentication.getName() != "anonymousUser") {
+			Customer currentUser = (Customer) authentication.getPrincipal();
+			params.put("email", currentUser.getEmail());
+			return new ModelAndView("/homepage.html", params);
+		}
+		else {
+			return new ModelAndView("/home.html", params);
+		}
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	
 	}
 
 }

@@ -3,80 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <title>User Registration Page</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
-<h1>Customer Registration Page</h1>
-<form action="#" th:object="${customer}" th:action="@{/user/registration}" method="POST" enctype="utf8">
-    <div>
-        <label>First name: </label>
-        <input th:field="*{firstName}"/>
-        <p th:each="error: ${#fields.errors('firstName')}"
-          th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label>Last name: </label>
-        <input th:field="*{lastName}"/>
-        <p th:each="error : ${#fields.errors('lastName')}"
-          th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label>Current Address: </label>
-        <input th:field="*{address}"/>
-        <p th:each="error : ${#fields.errors('address')}"
-          th:text="${error}">Validation error</p>
-    </div>  
-    <div>
-        <label>Date of Birth: </label>
-        <input type="date" th:field="*{DOB}"/>
-        <p th:each="error : ${#fields.errors('DOB')}"
-          th:text="${error}">Validation error</p>
-    </div> 
-    <div>
-        <label>Gender: </label>
-        <select th:field="*{gender}">
-    		<option th:value="'Male'" th:text="Male"></option>
-    		<option th:value="'Female'" th:text="Female"></option>
-		</select>
-          <p th:each="error : ${#fields.errors('gender')}"
-          th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label>Email: </label>
-        <input type="email" th:field="*{email}"/>
-        <p th:each="error : ${#fields.errors('email')}"
-          th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label>Salary: </label>
-        <input type="number" th:field="*{salary}"/>
-        <p th:each="error : ${#fields.errors('salary')}"
-          th:text="${error}">Validation error</p>
-    </div>
-     <div>
-        <label>Nationality: </label>
-        <input th:field="*{nationality}"/>
-        <p th:each="error : ${#fields.errors('nationality')}"
-          th:text="${error}">Validation error</p>
-    </div>
-     <div>
-        <label>Primary phone number: </label>
-        <input th:field="*{mobile}"/>
-        <p th:each="error : ${#fields.errors('mobile')}"
-          th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label>Password: </label>
-        <input type="password" th:field="*{password}"/>
-        <p th:each="error : ${#fields.errors('password')}"
-          th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label>Confirm password: </label>
-        <input type="password" th:field="*{matchingPassword}"/>
-    </div>
-    <button type="submit" >Submit</button>
-</form>
- 
+<div th:replace="~{fragments/header :: header}">Header</div>
+<div class="container">
+	<h1>Customer Registration Page</h1>
+	<form action="#" th:object="${customer}" th:action="@{/user/registration}" method="POST" enctype="utf8">
+	    <div>
+	        <label>First name: </label>
+	        <input th:field="*{firstName}"/>
+	        <p th:each="error: ${#fields.errors('firstName')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	    <div>
+	        <label>Last name: </label>
+	        <input th:field="*{lastName}"/>
+	        <p th:each="error : ${#fields.errors('lastName')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	    <div>
+	        <label>Current Address: </label>
+	        <input th:field="*{address}"/>
+	        <p th:each="error : ${#fields.errors('address')}"
+	          th:text="${error}">Validation error</p>
+	    </div>  
+	    <div>
+	        <label>Date of Birth: </label>
+	        <input type="date" th:field="*{DOB}"/>
+	        <p th:each="error : ${#fields.errors('DOB')}"
+	          th:text="${error}">Validation error</p>
+	    </div> 
+	    <div>
+	        <label>Gender: </label>
+	        <select th:field="*{gender}">
+	    		<option th:value="'Male'" th:text="Male"></option>
+	    		<option th:value="'Female'" th:text="Female"></option>
+			</select>
+	          <p th:each="error : ${#fields.errors('gender')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	    <div>
+	        <label>Email: </label>
+	        <input type="email" th:field="*{email}"/>
+	        <p th:each="error : ${#fields.errors('email')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	    <div>
+	        <label>Salary: </label>
+	        <input type="number" th:field="*{salary}"/>
+	        <p th:each="error : ${#fields.errors('salary')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	     <div>
+	        <label>Nationality: </label>
+	        <input th:field="*{nationality}"/>
+	        <p th:each="error : ${#fields.errors('nationality')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	     <div>
+	        <label>Primary phone number: </label>
+	        <input th:field="*{mobile}"/>
+	        <p th:each="error : ${#fields.errors('mobile')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	    <div>
+	        <label>Password: </label>
+	        <input type="password" th:field="*{password}"/>
+	        <p th:each="error : ${#fields.errors('password')}"
+	          th:text="${error}">Validation error</p>
+	    </div>
+	    <div>
+	        <label>Confirm password: </label>
+	        <input type="password" th:field="*{matchingPassword}"/>
+	    </div>
+	    <button type="submit" >Submit</button>
+	</form>
+ </div>
 <!-- <a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a> -->
 </body>
 </html>

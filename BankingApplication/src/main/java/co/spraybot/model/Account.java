@@ -4,6 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +17,9 @@ import javax.persistence.Table;
 @Table(name="account")
 public class Account {
 	@Id
-	private int accountId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
 	@ManyToOne()
 	@JoinColumn(name="customer_id", nullable=false)
 	private Customer customer; //foreign key to Customer.customerId
@@ -24,9 +28,8 @@ public class Account {
 	@Column(nullable=true)
 	private int accountType; //4 types of accounts: checking, dividend, savings, RRSP
 	
-	public Account(int accountId, Customer customer, int accountNum, int balance, int accountType) {
+	public Account(Customer customer, int accountNum, int balance, int accountType) {
 		super();
-		this.accountId = accountId;
 		this.customer = customer;
 		this.accountNum = accountNum;
 		this.balance = balance;
@@ -37,10 +40,10 @@ public class Account {
 		
 	}
 	public int getAccountId() {
-		return accountId;
+		return id;
 	}
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setAccountId(int id) {
+		this.id = id;
 	}
 	public Customer getCustomer() {
 		return customer;
@@ -71,7 +74,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [accountId=" + accountId + ", customerId=" + customer.toString() + ", accountNum=" + accountNum
+		return "Account [id=" + id + ", customerId=" + customer.toString() + ", accountNum=" + accountNum
 				+ ", balance=" + balance + "]";
 	}
 	

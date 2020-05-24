@@ -19,7 +19,6 @@ public class validEmailValidator implements ConstraintValidator<ValidEmail, Stri
 	public boolean validateEmail(String email) {
 		pattern = Pattern.compile(EMAIL_PATTERN);
 		match = pattern.matcher(email);
-		System.out.println("Pattern match: " + match.matches());
 		return match.matches();
 	}
 }

@@ -27,6 +27,11 @@
 
   <dependencies>
 	<dependency>
+	    <groupId>org.thymeleaf.extras</groupId>
+	    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+	    <version>3.0.4.RELEASE</version>
+	</dependency>
+	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-entitymanager</artifactId>
 	    <version>5.4.16.Final</version>
@@ -193,8 +198,8 @@
 		</plugins>
   </build>
   
-  	 <beans>
+  	<!--  <beans>
 		<bean name="UserDetailsService" class="org.springframework.security.core.userdetails.UserDetailsService"></bean>
-	</beans>
+	</beans> -->
   
 </project>

@@ -26,7 +26,7 @@ import co.spraybot.service.LoginAttemptService;
 public class CustomerDetailsService implements UserDetailsService{
 	
 	@Autowired
-	private CustomerRepository customerRepository;
+	public CustomerRepository customerRepository;
 	
 	@Autowired
 	private LoginAttemptService loginAttemptService;
@@ -38,6 +38,9 @@ public class CustomerDetailsService implements UserDetailsService{
 		super();
 	}
 	
+	public void loadByEmailTest(String email) throws UsernameNotFoundException{
+		Customer customer = customerRepository.findByEmail(email);
+	}
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		String ip = getClientIP();

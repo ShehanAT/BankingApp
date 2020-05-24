@@ -69,13 +69,14 @@ public class RegistrationController {
 		@ModelAttribute("customer") @Valid CustomerDTO customer, HttpServletRequest request, Errors errors)
 	{
 		try {
-			final Customer registered = customerService.registerNewCustomer(customer);
+			Customer registered = customerService.registerNewCustomer(customer);
 		}
 		catch(CustomerAlreadyExistException e) {
 			ModelAndView mav = new ModelAndView("user/registration.html", "customer", customer);
 			mav.addObject("message", e.getMessage());
 			return mav;
 		}catch(Exception e) {
+			
 			ModelAndView mav = new ModelAndView("error/userError.html", "customer", customer);
 			System.out.println("ERROR: " + e.getMessage());
 			mav.addObject("error", e);

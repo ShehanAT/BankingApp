@@ -81,7 +81,6 @@ public class CustomerService implements ICustomerService{
 		catch(ParseException e) {
 			System.out.println(e.getMessage());
 		}
-//		System.out.println("CUSTOMERDTO: "+ customerDTO.getDOB());
 		customer.setBankLocation(null);
 		
 		return customerRepository.save(customer);

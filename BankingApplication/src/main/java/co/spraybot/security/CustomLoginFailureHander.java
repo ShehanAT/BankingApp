@@ -43,7 +43,6 @@ public class CustomLoginFailureHander extends SimpleUrlAuthenticationFailureHand
 		else if(exception.getMessage().equalsIgnoreCase("blocked")) {
 			errorMessage = messageSource.getMessage("auth.message.blocked", null, locale);
 		}
-		System.out.println("ErrorMessage: " + errorMessage);
 		request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
 	
 		

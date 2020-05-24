@@ -1,0 +1,20 @@
+<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="messages" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Logout page</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+</head>
+<body>
+	<div class="container">
+		<div class="alert ">
+			<h3 th:if="${session[SPRING_SECURITY_LAST_EXCEPTION]}" class="alert alert-danger" th:text="#{message.logoutErr}"></h3>
+			
+			<h3 th:if="${param.logoutSucc}" th:text="#{message.logoutSucc}" class="alert alert-info"></h3>
+		</div>
+		<a th:href="@{/login}" class="btn btn-primary">Login</a>
+	</div>
+</body>
+</html>
