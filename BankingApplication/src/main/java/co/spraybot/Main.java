@@ -50,9 +50,10 @@ public class Main {
 //		Transaction t1 = new Transaction(1, a1, c1, time1, 500, 0); // transaction type = 0(deposit)
 //		a1.setBalance(a1.getBalance() + 500);
 	
-//		TransactionService ts = new TransactionService();
+		TransactionService ts = new TransactionService();
 //		ts.depositFunds(1, 500);
 //		ts.withdrawFunds(1, 900);
+		ts.transferFunds(2, 1, 500);
 		SpringApplication.run(Main.class, args);
 	}
 }

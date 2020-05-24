@@ -26,7 +26,7 @@ public class Account {
 	private int accountNum;
 	private int balance;
 	@Column(nullable=true)
-	private int accountType; //4 types of accounts: checking, dividend, savings, RRSP
+	private int accountType; //4 types of accounts: (0)-checking, (1)-dividend, (2)-savings, (3)-RRSP
 	
 	public Account(Customer customer, int accountNum, int balance, int accountType) {
 		super();

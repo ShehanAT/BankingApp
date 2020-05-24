@@ -36,12 +36,33 @@ public final class TransactionService {
 	}
 	
 	public static void depositFunds(int aId, int depositAmount) {
+		/*Tasks:
+		 * 1. update Account.balance = Account.balance + depositAmount
+		 * 2. save Account.customerId in local var
+		 * 3. save customer and account objects to local vars
+		 * 2. insert Transaction record into Transaction with customerId and aId, transactionType = 0;
+		 */
 		init();
 		tx = session.beginTransaction();
-		Query query1 = session.createQuery("UPDATE Account SET balance=balance+:depositAmount WHERE accountId=:aId");
+		Query query1 = session.createQuery("UPDATE Account SET balance=balance+:depositAmount WHERE id=:aId");
 		query1.setParameter("depositAmount", depositAmount);
 		query1.setParameter("aId", aId);
-		int queryStatus = query1.executeUpdate();
+		query1.executeUpdate();
+		
+		query1 = session.createQuery("FROM Account WHERE id=:aId");
+		query1.setParameter("aId", aId);
+		Account a1 = (Account) query1.list().remove(0);
+		
+		query1 = session.createSQLQuery("SELECT customer_id FROM public.account WHERE id=" + aId + ";");
+		List result1 = query1.list();
+		Integer cId = ((BigInteger)result1.remove(0)).intValue();
+		
+		query1 = session.createQuery("FROM Customer AS c WHERE cast(c.customerId as int)=:cId");
+		query1.setParameter("cId", cId);
+		Customer c1 = (Customer) query1.list().remove(0);
+		
+		co.spraybot.model.Transaction t1 = new co.spraybot.model.Transaction(a1, c1, new Timestamp(System.currentTimeMillis()), depositAmount, 1); // last param=transaction type: withdraw
+		session.save(t1);
 
 		tx.commit();
 		session.close();
@@ -52,7 +73,7 @@ public final class TransactionService {
 		 * 1. update Account.balance = Account.balance - withdrawAmount
 		 * 2. save Account.customerId in local var
 		 * 3. save customer and account objects to local vars
-		 * 2. insert Transaction record into Transaction with customerId and aId
+		 * 2. insert Transaction record into Transaction with customerId and aId, transactionType = 1;
 		 */
 		init();
 		tx = session.beginTransaction();
@@ -80,4 +101,44 @@ public final class TransactionService {
 		tx.commit();
 		session.close();
 	}
+	
+	public static void transferFunds(int firstAccountId, int secondAccountId, int transferAmount) {
+		/*Tasks:
+		 * 1. update Account.balance = Account.balance - transferAmount for first account
+		 * 2. update Account.balance = Account.balance + transferAmount for second account
+		 * 2. save Account.customerId in local var
+		 * 3. save customer and account objects to local vars
+		 * 2. insert Transaction record with from and to account id values(no customer id), transactionType = 3;
+		 */
+		init();
+		tx = session.beginTransaction();
+		Query query1 = session.createQuery("UPDATE Account SET balance=balance-:transferAmount WHERE id=:aId");
+		query1.setParameter("aId", firstAccountId);
+		query1.setParameter("transferAmount", transferAmount);
+		query1.executeUpdate();
+		
+		query1 = session.createQuery("UPDATE Account SET balance=balance+:transferAmount WHERE id=:aId");
+		query1.setParameter("aId", secondAccountId);
+		query1.setParameter("transferAmount", transferAmount);
+		query1.executeUpdate();
+		
+		query1 = session.createQuery("FROM Account WHERE id=:aId"); // firstAccount's customer Id will be in transaction record 
+		query1.setParameter("aId", firstAccountId);
+		Account a1 = (Account) query1.list().remove(0);
+		
+		query1 = session.createSQLQuery("SELECT customer_id FROM public.account WHERE id=" + firstAccountId + ";");
+		List result1 = query1.list();
+		Integer cId = ((BigInteger)result1.remove(0)).intValue();
+		
+		query1 = session.createQuery("FROM Customer AS c WHERE cast(c.customerId as int)=:cId");
+		query1.setParameter("cId", cId);
+		Customer c1 = (Customer) query1.list().remove(0);
+		
+		co.spraybot.model.Transaction t1 = new co.spraybot.model.Transaction(a1, secondAccountId, c1, new Timestamp(System.currentTimeMillis()), transferAmount); // last param=transaction type: withdraw
+		session.save(t1);
+		tx.commit();
+		session.close();
+		
+	}
+	
 }

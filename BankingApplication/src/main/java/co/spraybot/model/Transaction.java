@@ -30,7 +30,10 @@ public class Transaction {
 	private Timestamp tookPlace;
 	private int amount;
 	private int transactionType; // 0 - Deposit, 1 - Withdraw, 2 - POS, 3 - Transfer
-	
+	@Column(name="fromAccId", nullable=true)
+	private int fromAccId;
+	@Column(name="toAccId", nullable=true)
+	private int toAccId;
 	
 	public Transaction(Account account, Customer customer, Timestamp tookPlace, int amount, int transactionType) {
 		super();
@@ -41,6 +44,19 @@ public class Transaction {
 		this.transactionType = transactionType;
 	}
 	
+	public Transaction(Account account, int secondAccountId, Customer customer, Timestamp tookPlace, int amount) {
+		// this constructor used only for transactionType 3 - Transfer
+		super();
+		this.account = account;
+		this.customer = customer;
+		this.tookPlace = tookPlace;
+		this.amount = amount;
+		this.fromAccId = account.getAccountId();
+		this.toAccId = secondAccountId;
+		this.transactionType = 3;
+	}
+	
+	
 	public Transaction() {
 	}
 
@@ -49,6 +65,30 @@ public class Transaction {
 		return account;
 	}
 
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getFromAccId() {
+		return fromAccId;
+	}
+
+	public void setFromAccId(int fromAccId) {
+		this.fromAccId = fromAccId;
+	}
+
+	public int getToAccId() {
+		return toAccId;
+	}
+
+	public void setToAccId(int toAccId) {
+		this.toAccId = toAccId;
+	}
 
 	public void setAccount(Account account) {
 		this.account = account;
