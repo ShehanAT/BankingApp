@@ -3,11 +3,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-dark" th:fragment="header">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
   <a class="navbar-brand" th:href="@{/homepage}">Banking Application</a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -15,10 +16,18 @@
         <a class="nav-link" th:href="@{/homepage}">Home <span class="sr-only">(current)</span></a>
       </li>
       
-      <li sec:authorize="isAuthenticated()" class="nav-item">
+      <li sec:authorize="isAuthenticated()" class="nav-item" style="margin-right: 30px;">
         <a class="nav-link" th:href="@{/logout}">Logout</a>
       </li>
-       <li sec:authorize="!isAuthenticated()" class="nav-item">
+      <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Make Transactions</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/depositFunds}">Deposit Funds</a>
+          <a class="dropdown-item" th:href="@{/withdrawFunds}">Withdraw Funds</a>
+          <a class="dropdown-item" th:href="@{/transferFunds}">Transfer Funds</a>
+        </div>
+      </li>
+       <li sec:authorize="!isAuthenticated()" class="nav-item" style="margin-right: 30px;">
         <a class="nav-link" th:href="@{/login}">Login</a>
       </li>
     </ul>

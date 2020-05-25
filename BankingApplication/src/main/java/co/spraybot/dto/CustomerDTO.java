@@ -124,11 +124,6 @@ public class CustomerDTO {
 		this.salary = salary;
 	}
 	
-//	@Override
-//	public boolean equals(Object obj) {
-//		// TODO Auto-generated method stub
-//		return super.equals(obj);
-//	}
 	@Override
 	public String toString() {
 		return "Customer [firstName=" + firstName + ", lastName=" + lastName

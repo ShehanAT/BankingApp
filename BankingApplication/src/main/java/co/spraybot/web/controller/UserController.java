@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.spraybot.model.Account;
 import co.spraybot.model.Customer;
+import co.spraybot.service.TransactionDetailsService;
 
 @Controller
 public class UserController {
@@ -50,6 +53,7 @@ public class UserController {
 			return new ModelAndView("/homepage.html", params);
 		}
 		else {
+	
 			return new ModelAndView("/home.html", params);
 		}
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
