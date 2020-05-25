@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.spraybot.dto.TransferFundDTO;
 import co.spraybot.model.Account;
 import co.spraybot.model.Customer;
 import co.spraybot.service.TransactionDetailsService;
@@ -40,7 +41,6 @@ public class UserController {
 		params.put("dateTime", dateTime);
 		params.put("currentUser", currentUsername);
 		return new ModelAndView("user/profile.html", params);
-//		return "user/index.html";
 	}
 	
 	@RequestMapping(value="/homepage")
@@ -49,15 +49,13 @@ public class UserController {
 		HashMap params = new HashMap<String, Object>();
 		if(authentication.getName() != "anonymousUser") {
 			Customer currentUser = (Customer) authentication.getPrincipal();
-			params.put("email", currentUser.getEmail());
+			String email = currentUser.getEmail();
+			params.put("email", email);
 			return new ModelAndView("/homepage.html", params);
 		}
 		else {
-	
 			return new ModelAndView("/home.html", params);
 		}
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	
 	}
 
 }

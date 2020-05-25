@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.spraybot.dto.DepositWithdrawFundDTO;
+import co.spraybot.dto.TransferFundDTO;
 import co.spraybot.model.Account;
 import co.spraybot.model.Customer;
 import co.spraybot.service.TransactionDetailsService;
@@ -62,6 +63,25 @@ public class TransactionController {
 		}
 	}
 	
+	@RequestMapping(value="/transferFunds")
+	public ModelAndView getTransferView() {
+		HashMap params = new HashMap<String, Object>();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication.getName() != "anonymousUser") {
+			Customer customer = (Customer) authentication.getPrincipal();
+			Integer cId = ((Long)customer.getCustomerId()).intValue();
+			List<Account> accounts = TransactionDetailsService.getAccounts(cId);
+			TransferFundDTO transferFunds = new TransferFundDTO();
+			params.put("transferFunds", transferFunds);
+			params.put("customerId", cId);
+			params.put("accounts", accounts);
+			return new ModelAndView("/transaction/transferFunds.html", params);
+		}
+		else {
+			return new ModelAndView("/transaction/transferFunds.html", params);
+		}
+	}
+	
 	@PostMapping(value="/withdrawFunds")
 	public ModelAndView postWithdraw(@Valid DepositWithdrawFundDTO withdrawFunds, HttpServletRequest request, Errors errors) {
 		HashMap params = new HashMap<String, Object>();
@@ -99,6 +119,26 @@ public class TransactionController {
 			return mav;
 		}
 	}
+	
+	@PostMapping(value="/transferFunds")
+	public ModelAndView postDeposit(@Valid TransferFundDTO transferFunds, HttpServletRequest request, Errors errors) {
+		HashMap params = new HashMap<String, Object>();
+		ModelAndView mav;
+		try {
+			TransactionService.transferFunds(transferFunds.getFirstAccId(), transferFunds.getSecondAccId(), transferFunds.getAmount());
+			String succMessage = "Funds have been transfered successfully between your accounts.";
+			mav = new ModelAndView("/homepage", "message", succMessage);
+			return mav;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			mav = new ModelAndView("transaction/transactionError.html", "error", e.getMessage());
+			mav.addObject("error", e);
+			return mav;
+		}
+	}
+	
+
 	
 
 }
