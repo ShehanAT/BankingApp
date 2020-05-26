@@ -30,15 +30,14 @@ public class TransactionController {
 		if(authentication.getName() != "anonymousUser") {
 			Customer customer = (Customer) authentication.getPrincipal();
 			Integer cId = ((Long)customer.getCustomerId()).intValue();
-			TransactionDetailsService tds = new TransactionDetailsService();
-			List<Account> accounts = tds.getAccounts(cId);
+			List<Account> accounts = TransactionDetailsService.getAccounts(cId);
 			DepositWithdrawFundDTO depositFunds = new DepositWithdrawFundDTO();
 			params.put("customerId", cId);
 			params.put("accounts", accounts);
 			params.put("depositFunds", depositFunds);
 			return new ModelAndView("/transaction/depositFunds.html", params);
 		}else {
-			return new ModelAndView("/transaction/depositFunds.html", params);
+			return new ModelAndView("/transaction/transactionError.html", params);
 		}
 		
 		
@@ -132,7 +131,7 @@ public class TransactionController {
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
-			mav = new ModelAndView("transaction/transactionError.html", "error", e.getMessage());
+			mav = new ModelAndView("/transaction/transactionError.html", "error", e.getMessage());
 			mav.addObject("error", e);
 			return mav;
 		}

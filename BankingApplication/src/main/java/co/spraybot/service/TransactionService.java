@@ -27,7 +27,7 @@ import org.hibernate.Transaction;
 public final class TransactionService {
 	static SessionFactory sesFactory;
 	static Session session;
-	static Transaction tx ;
+	static Transaction tx;
 	
 	public static void init() {
 		// TODO Auto-generated constructor stub

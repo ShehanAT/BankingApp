@@ -76,9 +76,8 @@ public class RegistrationController {
 			mav.addObject("message", e.getMessage());
 			return mav;
 		}catch(Exception e) {
-			
 			ModelAndView mav = new ModelAndView("error/userError.html", "customer", customer);
-			System.out.println("ERROR: " + e.getMessage());
+			System.out.println(e.getMessage());
 			mav.addObject("error", e);
 			return mav;
 		}

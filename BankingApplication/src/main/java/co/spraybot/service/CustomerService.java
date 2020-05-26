@@ -47,7 +47,7 @@ public class CustomerService implements ICustomerService{
 	PasswordEncoder getEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-	@Autowired // interfaces can be autowired which automatically instanstiates them 
+	@Autowired // interfaces can be autowired which automatically instantiates them 
 	public PasswordEncoder passwordEncoder;
 	
 	@Override

@@ -55,7 +55,7 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<Account> accountIds;
 	@ManyToOne()
-	@JoinColumn(name="bank_location_id", nullable=true)
+	@JoinColumn(name="banklocation_id", nullable=true)
 	private BankLocation bankLocation;
 	
 	@ManyToMany(fetch=FetchType.EAGER)

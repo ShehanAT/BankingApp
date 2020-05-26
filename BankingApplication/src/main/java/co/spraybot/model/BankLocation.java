@@ -3,34 +3,43 @@ package co.spraybot.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 @Entity
+@Table(name="banklocation", schema="public")
 public class BankLocation {
 	@Id
-	private int bankId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
+	private int id;
+	@Column(name="locationname")
 	private String locationName;
+	@Column(name="address")
 	private String address;
+	@Column(name="open")
 	private boolean open;
 	@OneToMany(mappedBy="bankLocation")
 	private List<Customer> customers;
-	public BankLocation(int bankId, String locationName, String address, boolean open) {
+	public BankLocation(String locationName, String address, boolean open) {
 		super();
-		this.bankId = bankId;
 		this.locationName = locationName;
 		this.address = address;
 		this.open = open;
 		this.customers = new ArrayList<Customer>();
 	}
 	public BankLocation() {
-		
+		this.customers = new ArrayList<Customer>();
 	}
 	public int getBankId() {
-		return bankId;
+		return id;
 	}
-	public void setBankId(int bankId) {
-		this.bankId = bankId;
+	public void setBankId(int id) {
+		this.id = id;
 	}
 	public String getLocationName() {
 		return locationName;
@@ -58,7 +67,7 @@ public class BankLocation {
 	}
 	@Override
 	public String toString() {
-		return "BankLocation [bankId=" + bankId + ", locationName=" + locationName + ", address=" + address + ", open="
+		return "BankLocation [bankId=" + id + ", locationName=" + locationName + ", address=" + address + ", open="
 				+ open + ", customers=" + customers + "]";
 	}
 	
