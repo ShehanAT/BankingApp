@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Transfer Funds Page</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}">Header</div>
+<div class="container">
+<h3>Please fill out this form to delete an account: </h3>
+<form action="#" th:action="@{/deleteAccount}" method="POST" enctype="utf8">
+	<div class="form-group" id="deleteAccountSelection">
+		<label for="accountSelection">Select account to delete(Warning: This action is irreversible): </label>
+		<div class="form-check" th:each="account : ${accounts}">
+		  <input class="form-check-input" type="radio" th:name="accountSelectId" th:id="${account.getAccountId()}" th:value="${account.getAccountId()}" required/>
+		  <div th:switch="${account.getAccountType()}">
+			  <label class="form-check-label" th:for="accountSelectId" th:case="0" th:text="'Account Id: ' + ${account.getAccountId()} + ', Account Type: Checking Account' + ', Account Number: ' + ${account.getAccountNum()} + ', Balance: $' + ${account.getBalance()}">
+			  </label> 
+			  <label class="form-check-label" th:for="accountSelectId" th:case="1" th:text="'Account Id: ' + ${account.getAccountId()} + ', Account Type: Dividend Checking Account' + ', Account Number: ' + ${account.getAccountNum()} + ', Balance: $' + ${account.getBalance()}">
+		  	  </label>
+		   	  <label class="form-check-label" th:for="accountSelectId" th:case="2" th:text="'Account Id: ' + ${account.getAccountId()} + ', Account Type: Savings Account' + ', Account Number: ' + ${account.getAccountNum()} + ', Balance: $' + ${account.getBalance()}">
+		  	  </label>
+		  	  <label class="form-check-label" th:for="accountSelectId" th:case="3" th:text="'Account Id: ' + ${account.getAccountId()} + ', Account Type: RRSP Account' + ', Account Number: ' + ${account.getAccountNum()} + ', Balance: $' + ${account.getBalance()}">
+		  	  </label>
+		  </div>
+		</div>
+	</div>
+	<input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+</div>
+<div th:replace="fragments/footer :: footer">Footer</div>
+</body>
+</html>
